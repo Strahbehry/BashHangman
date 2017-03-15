@@ -53,7 +53,9 @@ print_help(){
 
 #Prints the welcome message
 print_welcome(){
+	clear_console
 
+	echo -e "Welcome to the Bash Hangman by Mitch Terpak (2059275) and Pim Merks (2084481)"
 }
 
 #Check if the input was valid
@@ -73,5 +75,8 @@ clear_console(){
 
 #The main program
 main(){
+	
+
+	print_welcome
 
 }

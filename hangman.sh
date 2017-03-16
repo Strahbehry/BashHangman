@@ -59,7 +59,184 @@ mask_word(){
 
 #Prints our poor guy
 print_hangman(){
-	:
+
+if [[ $attempts = 0 ]]
+then
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+
+elif [[ $attempts = 1 ]]
+then
+	echo "      "
+	echo "               "
+	echo "               "
+	echo "               "
+	echo "               "
+	echo "               "
+	echo "               "
+	echo "               "
+	echo "               "
+	echo "               "
+	echo "               "
+	echo "               "
+	echo "_______________"
+
+elif [[ $attempts = 2 ]]
+then
+	echo "      "
+	echo "               "
+	echo "               "
+	echo "               "
+	echo "               "
+	echo "               "
+	echo "               "
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "_______________|"
+
+elif [[ $attempts = 3 ]]
+then
+	echo "         "
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "_______________|"
+
+elif [[ $attempts = 4 ]]
+then
+	echo "      __________"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "_______________|"
+
+elif [[ $attempts = 5 ]]
+then
+	echo "      __________"
+	echo "     |         |"
+	echo "     |         |"
+	echo "   _/_\_       |"
+	echo "    |_|        |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "_______________|"
+
+elif [[ $attempts = 6 ]]
+then
+	echo "      __________"
+	echo "     |         |"
+	echo "     |         |"
+	echo "   _/_\_       |"
+	echo "    |_|        |"
+	echo "     |         |"
+	echo "     |         |"
+	echo "     |         |"
+	echo "     |         |"
+	echo "               |"
+	echo "               |"
+	echo "               |"
+	echo "_______________|"
+
+elif [[ $attempts = 7 ]]
+then
+	echo "      __________"
+	echo "     |         |"
+	echo "     |         |"
+	echo "   _/_\_       |"
+	echo "    |_|        |"
+	echo "     |         |"
+	echo "     |         |"
+	echo "     |         |"
+	echo "     |         |"
+	echo "    /          |"
+	echo "   /           |"
+	echo "               |"
+	echo "_______________|"
+
+elif [[ $attempts = 8 ]]
+then
+	echo "      __________"
+	echo "     |         |"
+	echo "     |         |"
+	echo "   _/_\_       |"
+	echo "    |_|        |"
+	echo "     |         |"
+	echo "     |         |"
+	echo "     |         |"
+	echo "     |         |"
+	echo "    / \        |"
+	echo "   /   \       |"
+	echo "               |"
+	echo "_______________|"
+
+elif [[ $attempts = 9 ]]
+then
+	echo "      __________"
+	echo "     |         |"
+	echo "     |         |"
+	echo "   _/_\_       |"
+	echo "    |_|        |"
+	echo "     |         |"
+	echo " ----|         |"
+	echo "     |         |"
+	echo "     |         |"
+	echo "    / \        |"
+	echo "   /   \       |"
+	echo "               |"
+	echo "_______________|"
+
+elif [[ $attempts = 10 ]]
+then
+	echo "      __________"
+	echo "     |         |"
+	echo "     |         |"
+	echo "   _/_\_       |"
+	echo "    |_|        |"
+	echo "     |         |"
+	echo " ----|----     |"
+	echo "     |         |"
+	echo "     |         |"
+	echo "    / \        |"
+	echo "   /   \       |"
+	echo "               |"
+	echo "_______________|"
+fi
+
 }
 
 #Prints a prompt for input
@@ -111,6 +288,7 @@ process_input(){
 }
 
 play_game(){
+	print_hangman
 	print_prompt
 	process_input
 

@@ -8,6 +8,7 @@ words_file=/usr/share/dict/words
 attempts=
 answer=
 hangman_word=
+masked_word=""
 guessed_letters=
 
 #Called when game is lost
@@ -27,13 +28,16 @@ generate_word(){
 
 	answer=$(echo "$answer" | tr '[:upper:]' '[:lower:]')
 
-	echo $answer
-
 	#If a word contains a apostrophe or a special character then generate a new word
 	if [[ $answer =~ [^a-z] ]]
     then
         generate_word
-    fi
+        return 1
+    fi    
+}
+
+mask_word(){
+	masked_word=$(tr -c "\n $guessed_letters" "-" <<< "$answer")
 }
 
 #Prints the word
@@ -78,6 +82,10 @@ process_input(){
 	:
 }
 
+play_game(){
+	:
+}
+
 #Check if the word file exists
 validate_word_file(){
 	if [ ! -f $words_file ]
@@ -97,8 +105,9 @@ main(){
 	print_welcome
 	validate_word_file
 	generate_word
-
-	#while true; do
+	mask_word
+	
+	play_game
 }
 
 main

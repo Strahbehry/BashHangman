@@ -28,6 +28,12 @@ generate_word(){
 	answer=$(echo "$answer" | tr '[:upper:]' '[:lower:]')
 
 	echo $answer
+
+	#If a word contains a apostrophe or a special character then generate a new word
+	if [[ $answer =~ [^a-z] ]]
+    then
+        generate_word
+    fi
 }
 
 #Prints the word

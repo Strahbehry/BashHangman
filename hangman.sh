@@ -4,21 +4,23 @@
 words_file=/usr/share/dict/words
 
 #Vars
-
-attempts=
+attempts=0
 answer=
 hangman_word=
 masked_word=""
 guessed_letters=""
+alphabet="abcdefghijklmnopqrstuvwxyz"
 
 #Called when game is lost
 game_lose() {
 	echo "You've failed too many times, you're hanged, unlucky"
+	exit
 }
 
 #Called when game is won
 game_win(){
 	echo "You've won!"
+	exit
 }
 
 #Generates the word
@@ -36,8 +38,8 @@ generate_word(){
 }
 
 #Checks if you won or lost
-check_word(){
-	if [[ ! "$masked_word" =~ _ ]]; then
+check_win_lose(){
+	if [[ ! "$masked_word" =~ - ]]; then
         game_win
     else
     	if (( attempts >= 10 ))
@@ -66,6 +68,7 @@ print_prompt(){
 	echo "You've $((10 - attempts)) attempts left"
 	echo "The letters you've guessed already are ' $guessed_letters '"
 	echo "Give the letter you would like to guess"
+	echo "$masked_word"
 }
 
 #Prints the welcome message
@@ -93,6 +96,10 @@ validate_user_input(){
 			return 1
 		fi
 
+	((attempts++))
+	guessed_letters=$guessed_letters$input
+	mask_word
+
 	return 0
 }
 
@@ -100,13 +107,15 @@ validate_user_input(){
 process_input(){
 	read input
 	
-	validate_user_input && echo "valid" || process_input
+	validate_user_input && : || process_input
 }
 
 play_game(){
 	print_prompt
 	process_input
 
+	check_win_lose
+	play_game
 }
 
 #Check if the word file exists

@@ -60,182 +60,28 @@ mask_word(){
 #Prints our poor guy
 print_hangman(){
 
-if [[ $attempts = 0 ]]
-then
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
+read -r -d '' hex <<'EOF'
+1f8b080025bbce580003535040055c0ac3488067b038841a02f16860b0f8
+ae862a02689eab21ec3bead84b1f015cbe438acdc1e254320488f55d0dba
+216802f1faf131f1282a6ae26bd0b4d0dc331802f4f41d2133881118d6be
+d347f30c127f58f82e06c37731a85a0685ef74816098fb0e44d0d777004c
+bdfc0d8a090000
+EOF
+mapfile -d$'\014' frames < <(printf "%b" $(sed 's/../\\x& /g' <<<"$hex") |gzip -d)
+#here you have the array "frames[@]" - with the pictures
 
-elif [[ $attempts = 1 ]]
-then
-	echo "      "
-	echo "               "
-	echo "               "
-	echo "               "
-	echo "               "
-	echo "               "
-	echo "               "
-	echo "               "
-	echo "               "
-	echo "               "
-	echo "               "
-	echo "               "
-	echo "_______________"
+$i=0
 
-elif [[ $attempts = 2 ]]
-then
-	echo "      "
-	echo "               "
-	echo "               "
-	echo "               "
-	echo "               "
-	echo "               "
-	echo "               "
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "_______________|"
-
-elif [[ $attempts = 3 ]]
-then
-	echo "         "
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "_______________|"
-
-elif [[ $attempts = 4 ]]
-then
-	echo "      __________"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "_______________|"
-
-elif [[ $attempts = 5 ]]
-then
-	echo "      __________"
-	echo "     |         |"
-	echo "     |         |"
-	echo "   _/_\_       |"
-	echo "    |_|        |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "_______________|"
-
-elif [[ $attempts = 6 ]]
-then
-	echo "      __________"
-	echo "     |         |"
-	echo "     |         |"
-	echo "   _/_\_       |"
-	echo "    |_|        |"
-	echo "     |         |"
-	echo "     |         |"
-	echo "     |         |"
-	echo "     |         |"
-	echo "               |"
-	echo "               |"
-	echo "               |"
-	echo "_______________|"
-
-elif [[ $attempts = 7 ]]
-then
-	echo "      __________"
-	echo "     |         |"
-	echo "     |         |"
-	echo "   _/_\_       |"
-	echo "    |_|        |"
-	echo "     |         |"
-	echo "     |         |"
-	echo "     |         |"
-	echo "     |         |"
-	echo "    /          |"
-	echo "   /           |"
-	echo "               |"
-	echo "_______________|"
-
-elif [[ $attempts = 8 ]]
-then
-	echo "      __________"
-	echo "     |         |"
-	echo "     |         |"
-	echo "   _/_\_       |"
-	echo "    |_|        |"
-	echo "     |         |"
-	echo "     |         |"
-	echo "     |         |"
-	echo "     |         |"
-	echo "    / \        |"
-	echo "   /   \       |"
-	echo "               |"
-	echo "_______________|"
-
-elif [[ $attempts = 9 ]]
-then
-	echo "      __________"
-	echo "     |         |"
-	echo "     |         |"
-	echo "   _/_\_       |"
-	echo "    |_|        |"
-	echo "     |         |"
-	echo " ----|         |"
-	echo "     |         |"
-	echo "     |         |"
-	echo "    / \        |"
-	echo "   /   \       |"
-	echo "               |"
-	echo "_______________|"
-
-elif [[ $attempts = 10 ]]
-then
-	echo "      __________"
-	echo "     |         |"
-	echo "     |         |"
-	echo "   _/_\_       |"
-	echo "    |_|        |"
-	echo "     |         |"
-	echo " ----|----     |"
-	echo "     |         |"
-	echo "     |         |"
-	echo "    / \        |"
-	echo "   /   \       |"
-	echo "               |"
-	echo "_______________|"
+for frame in "${frames[@]}"
+do
+	((i++))
+	if [[ $attempts < $i ]]
+		then
+    clear
+    printf "%s\n" "$frame"
 fi
+    
+done
 
 }
 

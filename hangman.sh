@@ -70,16 +70,14 @@ EOF
 mapfile -d$'\014' frames < <(printf "%b" $(sed 's/../\\x& /g' <<<"$hex") |gzip -d)
 #here you have the array "frames[@]" - with the pictures
 
-$i=0
+
 
 for frame in "${frames[@]}"
 do
-	((i++))
-	if [[ $attempts < $i ]]
-		then
+
     clear
     printf "%s\n" "$frame"
-fi
+    sleep 0.3
     
 done
 

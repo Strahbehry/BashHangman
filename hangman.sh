@@ -59,7 +59,6 @@ mask_word(){
 
 #Prints our poor guy
 print_hangman(){
-
 read -r -d '' hex <<'EOF'
 1f8b080025bbce580003535040055c0ac3488067b038841a02f16860b0f8
 ae862a02689eab21ec3bead84b1f015cbe438acdc1e254320488f55d0dba
@@ -70,17 +69,8 @@ EOF
 mapfile -d$'\014' frames < <(printf "%b" $(sed 's/../\\x& /g' <<<"$hex") |gzip -d)
 #here you have the array "frames[@]" - with the pictures
 
-
-
-for frame in "${frames[@]}"
-do
-
-    clear
-    printf "%s\n" "$frame"
-    sleep 0.3
-    
-done
-
+clear
+printf "%s\n" "${frames[$attempts]}"
 }
 
 #Prints a prompt for input

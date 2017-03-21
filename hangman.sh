@@ -6,7 +6,6 @@ words_file=/usr/share/dict/words
 #Vars
 attempts=0
 answer=
-hangman_word=
 masked_word=""
 guessed_letters=""
 alphabet="abcdefghijklmnopqrstuvwxyz"
@@ -14,12 +13,17 @@ alphabet="abcdefghijklmnopqrstuvwxyz"
 #Called when game is lost
 game_lose() {
 	echo "You've failed too many times, you're hanged, unlucky"
+	echo "The word was $answer !"
+	echo "Press any key to exit"
+	read -n 1
 	exit
 }
 
 #Called when game is won
 game_win(){
 	echo "You've won!"
+	echo "Press any key to exit"
+	read -n 1
 	exit
 }
 
@@ -82,13 +86,6 @@ print_prompt(){
 	echo "$masked_word"
 }
 
-#Prints the welcome message
-print_welcome(){
-	clear_console
-
-	echo "Welcome to the Bash Hangman by Mitch Terpak (2059275) and Pim Merks (2084481)"
-}
-
 #Check if the input was valid
 validate_user_input(){
 	echo ""
@@ -107,7 +104,10 @@ validate_user_input(){
 			return 1
 		fi
 
-	((attempts++))
+	if [[ $answer != *"$input"* ]]
+		then
+		((attempts++))
+	fi
 	guessed_letters=$guessed_letters$input
 	mask_word
 
@@ -116,7 +116,7 @@ validate_user_input(){
 
 #Processes the user input
 process_input(){
-	read input
+	read -n 1 input
 	
 	validate_user_input && : || process_input
 }
@@ -124,9 +124,8 @@ process_input(){
 play_game(){
 	print_hangman
 	print_prompt
-	process_input
-
 	check_win_lose
+	process_input
 	play_game
 }
 
@@ -139,19 +138,23 @@ validate_word_file(){
 	fi
 }
 
-#Clears the console
-clear_console(){
-	printf "\033c"
+#traps ctrl-c
+ctrl_c() {
+	echo ""
+    echo "The word was $answer"
+    exit
 }
 
 #The main program
 main(){
-	print_welcome
+	clear
+	echo "Welcome to the Bash Hangman by Mitch Terpak (2059275) and Pim Merks (2084481)"
+
 	validate_word_file
 	generate_word
 	mask_word
-
 	play_game
 }
 
+trap ctrl_c INT
 main

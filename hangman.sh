@@ -164,9 +164,6 @@ main(){
 	play_game
 }
 
-trap ctrl_c INT
-
-
 # Execute getopt
 ARGS=$(getopt -o "w:d:" -l "word:,dictionary:" -n "trol" -- "$@");
  
@@ -203,5 +200,7 @@ while true; do
             ;;
     esac
 done
+
+trap ctrl_c INT
 
 main

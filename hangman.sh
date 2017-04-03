@@ -153,8 +153,13 @@ main(){
 	clear
 	echo "Welcome to the Bash Hangman by Mitch Terpak (2059275) and Pim Merks (2084481)"
 
-	validate_word_file
-	generate_word
+	if [ -z "$answer" ] 
+	then
+		validate_word_file
+		generate_word
+	fi
+	
+
 	mask_word
 	play_game
 }

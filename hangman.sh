@@ -36,10 +36,7 @@ write_stats(){
 
 #Generates the word
 generate_word(){
-	answer=$(shuf -n 1 $words_file)
-
-	answer=$(echo "$answer" | tr '[:upper:]' '[:lower:]')
-
+	answer=$(echo $(shuf -n 1 $words_file) | tr '[:upper:]' '[:lower:]')
 	#If a word contains a apostrophe or a special character then generate a new word
 	if [[ $answer =~ [^a-z] ]]
     then

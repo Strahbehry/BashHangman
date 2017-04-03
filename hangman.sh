@@ -157,4 +157,43 @@ main(){
 }
 
 trap ctrl_c INT
+
+
+# Execute getopt
+ARGS=$(getopt -o "w:d:" -l "word:,dictionary:" -n "trol" -- "$@");
+ 
+#Bad arguments
+if [ $? -ne 0 ];
+then
+    help;
+fi
+ 
+eval set -- "$ARGS";
+
+while true; do
+    case "$1" in
+        -w|--word)
+            shift;
+                    if [ -n "$1" ]; 
+                    then
+                        answer="$1";
+                        shift;
+                    fi
+            ;;
+        -d|--dictionary)
+            shift;
+                    if [ -n "$1" ]; 
+                    then
+                        words_file="$1";
+                        shift;
+                    fi
+            ;;
+ 
+        --)
+            shift;
+            break;
+            ;;
+    esac
+done
+
 main

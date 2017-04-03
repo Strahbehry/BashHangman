@@ -4,6 +4,8 @@
 words_file=/usr/share/dict/words
 
 #Vars
+w=0
+l=0
 attempts=0
 answer=
 masked_word=""
@@ -31,7 +33,12 @@ game_win(){
 
 #Echo win/lose statistics
 write_stats(){
-	:
+	if [ -f "score" ]
+		then
+		echo "file exists"
+	else
+		echo "file doesnt exists"
+	fi
 }
 
 #Generates the word

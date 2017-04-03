@@ -14,6 +14,7 @@ alphabet="abcdefghijklmnopqrstuvwxyz"
 game_lose() {
 	echo "You've failed too many times, you're hanged, unlucky"
 	echo "The word was $answer !"
+	write_stats
 	echo "Press any key to exit"
 	read -n 1
 	exit
@@ -22,9 +23,15 @@ game_lose() {
 #Called when game is won
 game_win(){
 	echo "You've won!"
+	write_stats
 	echo "Press any key to exit"
 	read -n 1
 	exit
+}
+
+#Echo win/lose statistics
+write_stats(){
+	:
 }
 
 #Generates the word
@@ -88,8 +95,7 @@ print_prompt(){
 
 #Check if the input was valid
 validate_user_input(){
-	echo ""
-
+	clear
 	if [[ $input =~ [^a-z] ]]
 		then
 			echo "$input is invalid"

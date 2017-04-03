@@ -4,8 +4,9 @@
 words_file=/usr/share/dict/words
 
 #Vars
-w=0
-l=0
+wins=0
+loss=0
+win=true
 attempts=0
 answer=
 masked_word=""
@@ -16,6 +17,7 @@ alphabet="abcdefghijklmnopqrstuvwxyz"
 game_lose() {
 	echo "You've failed too many times, you're hanged, unlucky"
 	echo "The word was $answer !"
+	win=false
 	write_stats
 	echo "Press any key to exit"
 	read -n 1
@@ -35,10 +37,26 @@ game_win(){
 write_stats(){
 	if [ -f "score" ]
 		then
-		echo "file exists"
+		:
 	else
-		echo "file doesnt exists"
+		echo "wins=0" > score
+		echo "loss=0" >> score
 	fi
+
+	wins="$(sed -n '1p' score)"
+	wins=${wins:5}
+	loss="$(sed -n '2p' score)"
+	loss=${loss:5}
+
+	if [ $win = true ]
+		then
+		((wins++))
+	else
+		((loss++))
+	fi
+	echo "wins=$wins" > score
+	echo "loss=$loss" >> score
+	echo "$(sed -n '1p' score) | $(sed -n '2p' score)"
 }
 
 #Generates the word
